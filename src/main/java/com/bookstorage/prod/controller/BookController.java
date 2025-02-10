@@ -34,8 +34,8 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public BookModel findbyId(@PathVariable UUID id){
-        return ResponseEntity.ok(bookService.getBookById(id)).getBody();
+    public ResponseEntity<BookModel> findbyId(@PathVariable UUID id){
+        return ResponseEntity.ok(bookService.getBookById(id));
     }
 
     @DeleteMapping("/{id}")

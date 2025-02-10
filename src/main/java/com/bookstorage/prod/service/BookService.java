@@ -1,6 +1,7 @@
 package com.bookstorage.prod.service;
 
 import com.bookstorage.prod.dto.BookDTO;
+import com.bookstorage.prod.infra.exceptions.LivroNaoEncontradoException;
 import com.bookstorage.prod.models.AuthorModel;
 import com.bookstorage.prod.models.BookModel;
 import com.bookstorage.prod.repository.AuthorRepository;
@@ -47,8 +48,7 @@ public class BookService {
     }
 
     public BookModel getBookById(UUID id){
-        return bookRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Livro não encontrado"));
+        return bookRepository.findById(id).orElseThrow(() -> new LivroNaoEncontradoException("Livro não encontrado"));
     }
 
     public void deleteBookById(UUID id) {
