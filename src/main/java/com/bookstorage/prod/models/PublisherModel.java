@@ -1,5 +1,6 @@
 package com.bookstorage.prod.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -14,8 +16,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @Entity(name = "tb_publish")
-public class PublisherModel implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class PublisherModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,8 +24,9 @@ public class PublisherModel implements Serializable {
 
     private String name;
 
-    @OneToMany(mappedBy = "publisher", fetch = FetchType.EAGER)
-    private Set<BookModel> bookModel = new HashSet<>();
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(mappedBy = "publisher", fetch = FetchType.LAZY)
+    private List<BookModel> bookModel;
 
 
 

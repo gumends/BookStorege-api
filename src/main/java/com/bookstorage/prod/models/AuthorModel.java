@@ -1,21 +1,20 @@
 package com.bookstorage.prod.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity(name = "tb_authors")
-public class AuthorModel implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class AuthorModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,6 +22,7 @@ public class AuthorModel implements Serializable {
 
     private String name;
 
-    @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER)
-    private Set<BookModel> books = new HashSet<>();
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY)
+    private List<BookModel> books;
 }

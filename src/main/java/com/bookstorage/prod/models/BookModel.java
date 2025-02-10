@@ -1,21 +1,21 @@
 package com.bookstorage.prod.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
+@Component
 @Setter
 @Getter
 @NoArgsConstructor
 @Entity(name = "tb_bookies")
-public class BookModel implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class BookModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,7 +33,7 @@ public class BookModel implements Serializable {
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id")
     )
-    private Set<AuthorModel> authors = new HashSet<>();
+    private List<AuthorModel> authors;
 
     @OneToOne(mappedBy = "book", cascade = CascadeType.ALL)
     private ReviewsModel review;

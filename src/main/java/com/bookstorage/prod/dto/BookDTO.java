@@ -5,7 +5,8 @@ import java.util.UUID;
 
 public record BookDTO(
         String title,
-        UUID id,
-        Set<UUID>
+        UUID publisherId,
+        Set<UUID> authorsIds,
+        String reviewComment
 ) {
 }

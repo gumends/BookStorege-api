@@ -1,5 +1,6 @@
 package com.bookstorage.prod.controller;
 
+import com.bookstorage.prod.dto.PublisherDTO;
 import com.bookstorage.prod.models.AuthorModel;
 import com.bookstorage.prod.models.PublisherModel;
 import com.bookstorage.prod.service.AuthorService;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("publisher")
@@ -27,4 +29,18 @@ public class PublisherController {
         return ResponseEntity.ok(publisherService.getAll());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<PublisherModel> getById(UUID id){
+        return ResponseEntity.ok(publisherService.findById(id));
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<PublisherModel> patchById(UUID id, PublisherDTO publisherDTO){
+        return ResponseEntity.ok(publisherService.patchById(id, publisherDTO));
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteById(UUID id){
+        publisherService.deleteById(id);
+    }
 }
